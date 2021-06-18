@@ -4,7 +4,7 @@ import { ResultItem } from './ResultItem'
 
 const ELEMENTS_PER_PAGE = 5
 
-const Result = ({engine, data, error}) => {
+const Result = ({data, engine}) => {
     
     const [pagination, setPagination] = useState({
         page: 0,
@@ -46,26 +46,20 @@ const Result = ({engine, data, error}) => {
 
     return (
         <div className="results-container">
-            {
-                error ? 
-                    <p>{error.msg}</p>
-                :   
-                    <div className="engine-container">
-                        <p data-testid={engine} className='engine-title'>{engine} results</p>
-                        {
-                            data.filter((_, idx) => idx >= pagination.leftIndex && idx < pagination.rightIndex)
-                            .map( result => 
-                                <ResultItem key={result.position} item={result} />
-                            )
-                        }
-                        <div className="pagination-container">
-                            <p onClick={previousPage}>Prev</p>
-                            <p>{pagination.page + 1} of {pagination.totalPages}</p>
-                            <p onClick={nextPage}>Next</p>
-                        </div>
-                    </div>
-            }
-            
+            <div className="engine-container">
+                <p data-testid={engine} className='engine-title'>{engine} results</p>
+                {
+                    data.filter((_, idx) => idx >= pagination.leftIndex && idx < pagination.rightIndex)
+                    .map( result => 
+                        <ResultItem key={result.position} item={result} />
+                    )
+                }
+                <div className="pagination-container">
+                    <p onClick={previousPage}>Prev</p>
+                    <p>{pagination.page + 1} of {pagination.totalPages}</p>
+                    <p onClick={nextPage}>Next</p>
+                </div>
+            </div>
         </div>
     )
 }

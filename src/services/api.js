@@ -1,15 +1,13 @@
 import axios from "axios";
 
-const api_url = 'https://api.serphouse.com/serp/live'
+// const serphouse_api_url = 'https://api.serphouse.com/serp/live'
+const serpwow_api_url = 'https://api.serpwow.com/live/search'
 
-const query = (q, domain) => axios.get(api_url, {
+const query = (q, engine) => axios.get(serpwow_api_url, {
     params: {
         q,
-        domain: `${domain}.com`,
-        lang: domain === 'bing' ? 'en-US' : 'en'
-    },
-    headers: {
-        "authorization": `Bearer ${process.env.REACT_APP_SERP_API_KEY}`
+        api_key: '8F36B6941EBC48EEB0F2944862C4F782',
+        engine
     }
 })
 

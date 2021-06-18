@@ -58,7 +58,7 @@ export const searchAction = () => (dispatch, getState) => {
     const { searchInputValue, engine } = getState().data
     if(!searchInputValue) return dispatch({
         type: SEARCH_ERROR,
-        payload: { msg: 'Please write something to search' }
+        payload: { message: 'Please write something to search' }
     })
     const queryData = {
         searchInputValue,
@@ -69,8 +69,8 @@ export const searchAction = () => (dispatch, getState) => {
             // Both engines
             if(searchResult.length){
                 const combinedResult = {
-                    google: searchResult[0].data.results.results.organic,
-                    bing: searchResult[1].data.results.results.organic
+                    google: searchResult[0].data.organic_results,
+                    bing: searchResult[1].data.organic_results
                 }
                 return dispatch({
                     type: SEARCH_SUCCESS,
@@ -80,7 +80,7 @@ export const searchAction = () => (dispatch, getState) => {
             // Just one engine
             const { data } = searchResult
             const singleResult = {}
-            singleResult[engine] = data.results.results.organic
+            singleResult[engine] = data.organic_results
             dispatch({
                 type: SEARCH_SUCCESS,
                 payload: singleResult
@@ -89,7 +89,7 @@ export const searchAction = () => (dispatch, getState) => {
         .catch(error => {
             dispatch({
                 type: SEARCH_ERROR,
-                payload: error.response
+                payload: { message: 'Something went wrong, please try again' }
             })
         })
 }

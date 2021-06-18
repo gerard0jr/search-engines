@@ -32,13 +32,16 @@ const Main = () => {
                 fetchingData ? 
                     <p>Please wait while we search for {searchInputValue} in {engine === 'both' ? 'google and bing' : engine} ...</p>
                 :
-                <>
-                    {Object.keys(searchResult).map( engine => {
-                        const resultData = searchResult[engine]
-                        return <Result key={engine} data={resultData} error={searchError} engine={engine}/>
-                    }
-                    )}
-                </>
+                    searchError ? 
+                        <p>{searchError.message}</p>
+                    :
+                        <>
+                            {Object.keys(searchResult).map( engine => {
+                                const resultData = searchResult[engine]
+                                return <Result key={engine} data={resultData} engine={engine}/>
+                            }
+                            )}
+                        </>
             }
         </div>
     )
