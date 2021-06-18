@@ -1,0 +1,13 @@
+{
+    "plugins": [
+        "react"
+    ],
+    "extends": [
+        "react-app",
+        "eslint:recommended"
+    ],
+    "rules": {
+       "react/no-set-state": "off",
+       "react/prop-types": "off"
+    }
+}
